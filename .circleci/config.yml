@@ -235,10 +235,4 @@ workflows:
       - configure-infrastructure:
           requires:
             - deploy-infrastructure
-      - configure-cluster:
-          requires:
-            - configure-infrastructure
-            - upload-docker-container-to-hub
-      - deploy-docker:
-          requires:
-            - configure-cluster
+      - deploy-docker
