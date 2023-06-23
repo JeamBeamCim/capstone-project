@@ -227,10 +227,10 @@ jobs:
 workflows:
   default:
     jobs:
-      - test-build
-      - upload-docker:
+      - run-lint
+      - upload-docker-container-to-hub:
           requires:
-            - test-build
+            - run-lint
       - deploy-infrastructure
       - configure-infrastructure:
           requires:
@@ -238,7 +238,7 @@ workflows:
       - configure-cluster:
           requires:
             - configure-infrastructure
-            - upload-docker
+            - upload-docker-container-to-hub
       - deploy-docker:
           requires:
             - configure-cluster
