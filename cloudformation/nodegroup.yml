@@ -1,5 +1,5 @@
 Description: >
-  Goekhan Oezkan / Capstone Project
+  Goekhan Oezkan / Udacity Cloud DevOps Capstone Project
   Creates the nodegroup for the Amazon EKS Cluster
 Parameters:
   EnvironmentName:
