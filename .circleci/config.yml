@@ -145,7 +145,7 @@ jobs:
             if grep -q "No changes to deploy" ~/checkDeploymentSuccess.txt
               then
                 cat ~/inventory.txt
-                echo "Management instances are already configured."
+                echo "Our management instances are already configured."
               else
                 cat ~/inventory.txt
                 cd ansible
@@ -172,7 +172,7 @@ jobs:
             if grep -q "No changes to deploy" ~/checkDeploymentSuccess.txt
               then
                 cat ~/inventory.txt
-                echo "Our management instances are already configured."
+                echo "Management instances are already configured."
               else
                 cat ~/inventory.txt
                 cd ansible
@@ -235,6 +235,10 @@ workflows:
       - configure-infrastructure:
           requires:
             - deploy-infrastructure
-      - deploy-docker:
+      - configure-cluster:
           requires:
             - configure-infrastructure
+            - upload-docker-container-to-hub
+      - deploy-docker:
+          requires:
+            - configure-cluster
