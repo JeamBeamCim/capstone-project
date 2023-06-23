@@ -145,7 +145,7 @@ jobs:
             if grep -q "No changes to deploy" ~/checkDeploymentSuccess.txt
               then
                 cat ~/inventory.txt
-                echo "Our management instances are already configured."
+                echo "Management instances are already configured."
               else
                 cat ~/inventory.txt
                 cd ansible
@@ -179,17 +179,28 @@ jobs:
                 ansible-playbook -i ~/inventory.txt configure-cluster.yml
               fi
       - run:
-          name: Wait for LoadBalancer's domain to become reachable
+          name: Wait for LoadBalancer
           command: |
             if grep -q "No changes to deploy" ~/checkDeploymentSuccess.txt
               then
                 cat ~/inventory.txt
-                echo "Our management instances are already configured."
+                echo "Management instances are already configured."
               else
                 cat ~/inventory.txt
                 echo "Wait 60 seconds..."
                 sleep 60
               fi
+      - run:
+          name: Display the LoadBalancer's DNS name
+          command: |
+            cat ~/inventory.txt
+            cd ansible
+            ansible-playbook -i ~/inventory.txt save-elb-dns.yml
+            cat ~/elb_dns.txt
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - elb_dns.txt
 
   deploy-docker:
     docker:
