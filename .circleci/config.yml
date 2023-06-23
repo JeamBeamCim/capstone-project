@@ -231,7 +231,7 @@ workflows:
       - upload-docker:
           requires:
             - test-build
-      - deploy-infrastructure:
+      - deploy-infrastructure
       - configure-infrastructure:
           requires:
             - deploy-infrastructure
