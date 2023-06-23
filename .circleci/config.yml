@@ -107,8 +107,8 @@ jobs:
               --stack-name "${ENVIRONMENT_NAME}-eks-management" \
               --region ${AWS_DEFAULT_REGION} \
               --parameter-overrides file://cloudformation/management-parameters.json \
-              --output text >> ~/checkIfDeployed.txt
-            cat ~/checkIfDeployed.txt
+              --output text >> ~/checkDeploymentSuccess.txt
+            cat ~/checkDeploymentSuccess.txt
       - run:
           name: Extract the IPs of the management instances for Ansible
           command: |
@@ -123,7 +123,7 @@ jobs:
           root: ~/
           paths:
             - inventory.txt
-            - checkIfDeployed.txt
+            - checkDeploymentSuccess.txt
 
   configure-infrastructure:
     docker:
@@ -142,7 +142,7 @@ jobs:
       - run:
           name: Configure server
           command: |
-            if grep -q "No changes to deploy" ~/checkIfDeployed.txt
+            if grep -q "No changes to deploy" ~/checkDeploymentSuccess.txt
               then
                 cat ~/inventory.txt
                 echo "Our management instances are already configured."
@@ -169,7 +169,7 @@ jobs:
       - run:
           name: Configure server
           command: |
-            if grep -q "No changes to deploy" ~/checkIfDeployed.txt
+            if grep -q "No changes to deploy" ~/checkDeploymentSuccess.txt
               then
                 cat ~/inventory.txt
                 echo "Our management instances are already configured."
@@ -181,7 +181,7 @@ jobs:
       - run:
           name: Wait for LoadBalancer's domain to become reachable
           command: |
-            if grep -q "No changes to deploy" ~/checkIfDeployed.txt
+            if grep -q "No changes to deploy" ~/checkDeploymentSuccess.txt
               then
                 cat ~/inventory.txt
                 echo "Our management instances are already configured."
