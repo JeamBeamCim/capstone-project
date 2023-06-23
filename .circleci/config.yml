@@ -235,4 +235,6 @@ workflows:
       - configure-infrastructure:
           requires:
             - deploy-infrastructure
-      - deploy-docker
+      - deploy-docker:
+          requires:
+            - configure-infrastructure
