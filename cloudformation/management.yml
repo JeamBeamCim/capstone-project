@@ -1,6 +1,6 @@
 Description: >
   Goekhan Oezkan / Udacity Cloud DevOps Capstone Project
-  Creates two individual hosts to manage the EKS-Cluster
+  Creates hosts
 
 Parameters:
   EnvironmentName:

@@ -1,7 +1,7 @@
 ---
 Description: >
   Goekhan Oezkan / Udacity Cloud DevOps Capstone Project
-  Creates a VPC with public subnets for EKS.
+  Creates a VPC
 
 Parameters:
   EnvironmentName:
