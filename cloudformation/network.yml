@@ -198,7 +198,7 @@ Outputs:
       Name: !Sub ${EnvironmentName}-PUB-NETS
 
   SecurityGroup:
-    Description: Security group for the cluster control plane communication with worker nodes
+    Description: Security group for the cluster
     Value: !Ref ControlPlaneSecurityGroup
     Export:
       Name: !Sub ${EnvironmentName}-SCG
