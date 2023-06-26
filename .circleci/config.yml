@@ -141,6 +141,7 @@ jobs:
           command: |
             cat ~/inventory.txt
             cd ansible
+            export ANSIBLE_BUILTIN_COMMAND=/bin/true
             export ANSIBLE_HOST_KEY_CHECKING=false
             export ANSIBLE_IGNORE_UNREACHABLE=true
             ansible-playbook -i ~/inventory.txt configure-server.yml
@@ -164,6 +165,7 @@ jobs:
           command: |
             cat ~/inventory.txt
             cd ansible
+            export ANSIBLE_BUILTIN_COMMAND=/bin/true
             export ANSIBLE_HOST_KEY_CHECKING=false
             export ANSIBLE_IGNORE_UNREACHABLE=true
             ansible-playbook -i ~/inventory.txt configure-cluster.yml
@@ -178,6 +180,7 @@ jobs:
           command: |
             cat ~/inventory.txt
             cd ansible
+            export ANSIBLE_BUILTIN_COMMAND=/bin/true
             export ANSIBLE_HOST_KEY_CHECKING=false
             export ANSIBLE_IGNORE_UNREACHABLE=true
             ansible-playbook -i ~/inventory.txt save-elb-dns.yml
@@ -206,6 +209,7 @@ jobs:
           command: |
             cat ~/inventory.txt
             cd ansible
+            export ANSIBLE_BUILTIN_COMMAND=/bin/true
             export ANSIBLE_HOST_KEY_CHECKING=false
             export ANSIBLE_IGNORE_UNREACHABLE=true
             ansible-playbook -i ~/inventory.txt deploy-app.yml
