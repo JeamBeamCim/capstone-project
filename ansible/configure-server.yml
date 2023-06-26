@@ -15,6 +15,8 @@
     AWS_SECRET_ACCESS_KEY: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
     AWS_DEFAULT_REGION: "{{ lookup('env', 'AWS_DEFAULT_REGION') }}"
   tasks:
+    - name: Check AWS
+      shell: "aws configure list"
     - name: Set the aws_access_key_id
       shell: "aws configure set aws_access_key_id {{ AWS_ACCESS_KEY_ID }}"
     - name: Set the aws_secret_access_key
