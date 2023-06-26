@@ -1,6 +1,6 @@
 - name: "Deploy latest app"
   hosts: management[0]
-  user: ec2-user
+  user: root
   gather_facts: false
   become: yes
   vars:
