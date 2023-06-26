@@ -129,7 +129,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - "3d:84:4c:53:1f:8b:38:5d:19:74:c2:b9:d3:d2:06:8e:a5:88:73:60"
+            - "02:e1:8d:64:ab:a2:53:d8:37:d5:9f:c8:4a:dd:a1:cc:d8:f2:67:0f"
       - run:
           name: Install awscli and gettext-base
           command: |
@@ -169,7 +169,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - "3d:84:4c:53:1f:8b:38:5d:19:74:c2:b9:d3:d2:06:8e:a5:88:73:60"
+            - "02:e1:8d:64:ab:a2:53:d8:37:d5:9f:c8:4a:dd:a1:cc:d8:f2:67:0f"
       - attach_workspace:
           at: ~/
       - run:
@@ -211,7 +211,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - "3d:84:4c:53:1f:8b:38:5d:19:74:c2:b9:d3:d2:06:8e:a5:88:73:60"
+            - "02:e1:8d:64:ab:a2:53:d8:37:d5:9f:c8:4a:dd:a1:cc:d8:f2:67:0f"
       - attach_workspace:
           at: ~/
       - run:
