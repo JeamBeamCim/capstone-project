@@ -124,12 +124,29 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: circleci/python:3.7
     steps:
       - checkout
       - add_ssh_keys:
           fingerprints:
             - "24:20:fb:3f:29:80:13:2f:c9:b3:6c:0c:97:e9:fb:53:0e:6a:40:e4"
+      - run:
+          name: Install awscli and gettext-base
+          command: |
+            sudo pip3 install awscli
+            sudo apt-get install gettext-base
+      - run:
+          name: Install aws-iam-authenticator
+          command: |
+            curl -o aws-iam-authenticator curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.13.7/2019-06-11/bin/linux/amd64/aws-iam-authenticator
+            chmod +x ./aws-iam-authenticator
+            sudo mv ./aws-iam-authenticator /usr/local/bin/aws-iam-authenticator
+      - run:
+          name: Install kubectl
+          command: |
+            curl -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.13.7/2019-06-11/bin/linux/amd64/kubectl
+            chmod +x ./kubectl
+            sudo mv ./kubectl /usr/local/bin/kubectl
       - attach_workspace:
           at: ~/
       - run:
@@ -141,7 +158,6 @@ jobs:
           command: |
             cat ~/inventory.txt
             cd ansible
-            export ANSIBLE_BUILTIN_COMMAND=/bin/true
             export ANSIBLE_HOST_KEY_CHECKING=false
             export ANSIBLE_IGNORE_UNREACHABLE=true
             ansible-playbook -i ~/inventory.txt configure-server.yml
@@ -159,13 +175,12 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --update ansible
+            pip install --upgrade --user ansible
       - run:
           name: Configure server
           command: |
             cat ~/inventory.txt
             cd ansible
-            export ANSIBLE_BUILTIN_COMMAND=/bin/true
             export ANSIBLE_HOST_KEY_CHECKING=false
             export ANSIBLE_IGNORE_UNREACHABLE=true
             ansible-playbook -i ~/inventory.txt configure-cluster.yml
@@ -180,7 +195,6 @@ jobs:
           command: |
             cat ~/inventory.txt
             cd ansible
-            export ANSIBLE_BUILTIN_COMMAND=/bin/true
             export ANSIBLE_HOST_KEY_CHECKING=false
             export ANSIBLE_IGNORE_UNREACHABLE=true
             ansible-playbook -i ~/inventory.txt save-elb-dns.yml
@@ -209,7 +223,6 @@ jobs:
           command: |
             cat ~/inventory.txt
             cd ansible
-            export ANSIBLE_BUILTIN_COMMAND=/bin/true
             export ANSIBLE_HOST_KEY_CHECKING=false
             export ANSIBLE_IGNORE_UNREACHABLE=true
             ansible-playbook -i ~/inventory.txt deploy-app.yml
