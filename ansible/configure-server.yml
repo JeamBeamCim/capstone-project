@@ -1,9 +1,9 @@
 ---
 - name: "Install dependencies"
-  hosts: management
+#  hosts: management
   user: ubuntu
   gather_facts: false
-  become: yes
+#  become: yes
 
 #- name: "Authenticate AWS CLI with AWS"
 #  hosts: management
