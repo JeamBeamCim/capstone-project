@@ -152,7 +152,7 @@ jobs:
       - run:
           name: Add SSH Key
           command: |
-            ssh -i capstone.pem ec2-user@44.203.255.211
+            ssh -i capstone.pem ec2-user@52.201.65.101
 #      - run:
 #          name: Install dependencies
 #          command: |
