@@ -106,9 +106,7 @@ jobs:
               --tags project=${ENVIRONMENT_NAME} \
               --stack-name "${ENVIRONMENT_NAME}-eks-management" \
               --region ${AWS_DEFAULT_REGION} \
-              --parameter-overrides file://cloudformation/management-parameters.json \
-              --output text >> ~/checkDeploymentSuccess.txt
-            cat ~/checkDeploymentSuccess.txt
+              --parameter-overrides file://cloudformation/management-parameters.json
       - run:
           name: Extract the IPs of the management instances for Ansible
           command: |
@@ -123,7 +121,6 @@ jobs:
           root: ~/
           paths:
             - inventory.txt
-            - checkDeploymentSuccess.txt
 
   configure-infrastructure:
     docker:
@@ -142,15 +139,9 @@ jobs:
       - run:
           name: Configure server
           command: |
-            if grep -q "No changes to deploy" ~/checkDeploymentSuccess.txt
-              then
-                cat ~/inventory.txt
-                echo "Our management instances are already configured."
-              else
-                cat ~/inventory.txt
-                cd ansible
-                ansible-playbook -i ~/inventory.txt configure-server.yml
-              fi
+            cat ~/inventory.txt
+            cd ansible
+            ansible-playbook -i ~/inventory.txt configure-server.yml
 
   configure-cluster:
     docker:
@@ -169,27 +160,15 @@ jobs:
       - run:
           name: Configure server
           command: |
-            if grep -q "No changes to deploy" ~/checkDeploymentSuccess.txt
-              then
-                cat ~/inventory.txt
-                echo "Management instances are already configured."
-              else
-                cat ~/inventory.txt
-                cd ansible
-                ansible-playbook -i ~/inventory.txt configure-cluster.yml
-              fi
+            cat ~/inventory.txt
+            cd ansible
+            ansible-playbook -i ~/inventory.txt configure-cluster.yml
       - run:
           name: Wait for LoadBalancer
           command: |
-            if grep -q "No changes to deploy" ~/checkDeploymentSuccess.txt
-              then
-                cat ~/inventory.txt
-                echo "Management instances are already configured."
-              else
-                cat ~/inventory.txt
-                echo "Wait 60 seconds..."
-                sleep 60
-              fi
+            cat ~/inventory.txt
+            echo "Wait 60 seconds..."
+            sleep 60
       - run:
           name: Display the LoadBalancer's DNS name
           command: |
