@@ -148,18 +148,18 @@ jobs:
             chmod +x ./kubectl
             sudo mv ./kubectl /usr/local/bin/kubectl
 
-#      - run:
-#          name: Install dependencies
-#          command: |
-#            pip install --upgrade --user ansible
-#      - run:
-#          name: Configure server
-#          command: |
-#            cat ~/inventory.txt
-#            cd ansible
-#            export ANSIBLE_HOST_KEY_CHECKING=false
-#            export ANSIBLE_IGNORE_UNREACHABLE=true
-#            ansible-playbook -i ~/inventory.txt configure-server.yml
+      - run:
+          name: Install dependencies
+          command: |
+            pip install --upgrade --user ansible
+      - run:
+          name: Configure server
+          command: |
+            cat ~/inventory.txt
+            cd ansible
+            export ANSIBLE_HOST_KEY_CHECKING=false
+            export ANSIBLE_IGNORE_UNREACHABLE=true
+            ansible-playbook -i ~/inventory.txt configure-server.yml
 
   configure-cluster:
     docker:
