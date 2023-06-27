@@ -130,6 +130,23 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "02:e1:8d:64:ab:a2:53:d8:37:d5:9f:c8:4a:dd:a1:cc:d8:f2:67:0f"
+      - run:
+          name: Install awscli and gettext-base
+          command: |
+            sudo pip3 install awscli
+            sudo apt-get install gettext-base
+      - run:
+          name: Install aws-iam-authenticator
+          command: |
+            curl -o aws-iam-authenticator curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.13.7/2019-06-11/bin/linux/amd64/aws-iam-authenticator
+            chmod +x ./aws-iam-authenticator
+            sudo mv ./aws-iam-authenticator /usr/local/bin/aws-iam-authenticator
+      - run:
+          name: Install kubectl
+          command: |
+            curl -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.13.7/2019-06-11/bin/linux/amd64/kubectl
+            chmod +x ./kubectl
+            sudo mv ./kubectl /usr/local/bin/kubectl
       - attach_workspace:
           at: ~/
       - run:
@@ -141,15 +158,6 @@ jobs:
           command: |
             cat ~/inventory.txt
             cd ansible
-            ansible-playbook -i ~/inventory.txt configure-server.yml
-
-      - run:
-          name: Configure server
-          command: |
-            cat ~/inventory.txt
-            cd ansible
-            export ANSIBLE_HOST_KEY_CHECKING=false
-            export ANSIBLE_IGNORE_UNREACHABLE=true
             ansible-playbook -i ~/inventory.txt configure-server.yml
 
   configure-cluster:
@@ -175,8 +183,6 @@ jobs:
           command: |
             cat ~/inventory.txt
             cd ansible
-            export ANSIBLE_HOST_KEY_CHECKING=false
-            export ANSIBLE_IGNORE_UNREACHABLE=true
             ansible-playbook -i ~/inventory.txt configure-cluster.yml
       - run:
           name: Wait for LoadBalancer
@@ -189,8 +195,6 @@ jobs:
           command: |
             cat ~/inventory.txt
             cd ansible
-            export ANSIBLE_HOST_KEY_CHECKING=false
-            export ANSIBLE_IGNORE_UNREACHABLE=true
             ansible-playbook -i ~/inventory.txt save-elb-dns.yml
             cat ~/elb_dns.txt
       - persist_to_workspace:
@@ -217,8 +221,6 @@ jobs:
           command: |
             cat ~/inventory.txt
             cd ansible
-            export ANSIBLE_HOST_KEY_CHECKING=false
-            export ANSIBLE_IGNORE_UNREACHABLE=true
             ansible-playbook -i ~/inventory.txt deploy-app.yml
           no_output_timeout: 2m
 
