@@ -146,7 +146,9 @@ jobs:
           command: |
             curl -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.13.7/2019-06-11/bin/linux/amd64/kubectl
             chmod +x ./kubectl
-            sudo mv ./kubectl /usr/local/bin/kubectl
+            mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
+            echo 'export PATH=$PATH:$HOME/bin' >> .bashrc
+#            sudo mv ./kubectl /usr/local/bin/kubectl
       - attach_workspace:
           at: ~/
       - run:
@@ -174,16 +176,6 @@ jobs:
           name: Install dependencies
           command: |
             pip install --upgrade --user ansible
-      - run:
-          name: CHECK
-          command: |
-            ansible -m ping all -vvv
-      - run:
-          name: Install kubectl
-          command: |
-            curl -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.13.7/2019-06-11/bin/linux/amd64/kubectl
-            chmod +x ./kubectl
-            sudo mv ./kubectl /usr/local/bin/kubectl
       - run:
           name: Configure server
           command: |
