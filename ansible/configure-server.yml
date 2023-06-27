@@ -1,13 +1,13 @@
 ---
 - name: "Install dependencies"
   hosts: management
-  user: root
+  user: ec2-user
   gather_facts: false
   become: yes
 
 - name: "Authenticate AWS CLI with AWS"
   hosts: management
-  user: root
+  user: ec2-user
   gather_facts: false
   become: yes
   vars:
@@ -26,7 +26,7 @@
 
 - name: "Fetch kubectl config"
   hosts: management
-  user: root
+  user: ec2-user
   gather_facts: false
   become: yes
   vars:
