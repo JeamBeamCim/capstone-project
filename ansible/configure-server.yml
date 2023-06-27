@@ -1,10 +1,4 @@
 ---
-- name: "Install dependencies"
-  hosts: management
-  user: ec2-user
-  gather_facts: false
-  become: yes
-
 - name: "Fetch kubectl config"
   hosts: management
   user: ec2-user
