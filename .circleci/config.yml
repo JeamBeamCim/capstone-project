@@ -127,9 +127,9 @@ jobs:
       - image: circleci/python:3.7
     steps:
       - checkout
-      - add_ssh_keys:
-          fingerprints:
-            - "02:e1:8d:64:ab:a2:53:d8:37:d5:9f:c8:4a:dd:a1:cc:d8:f2:67:0f"
+#      - add_ssh_keys:
+#          fingerprints:
+#            - "02:e1:8d:64:ab:a2:53:d8:37:d5:9f:c8:4a:dd:a1:cc:d8:f2:67:0f"
       - run:
           name: Install awscli and gettext-base
           command: |
@@ -167,9 +167,9 @@ jobs:
       - image: circleci/python:3.7
     steps:
       - checkout
-      - add_ssh_keys:
-          fingerprints:
-            - "02:e1:8d:64:ab:a2:53:d8:37:d5:9f:c8:4a:dd:a1:cc:d8:f2:67:0f"
+#      - add_ssh_keys:
+#          fingerprints:
+#            - "02:e1:8d:64:ab:a2:53:d8:37:d5:9f:c8:4a:dd:a1:cc:d8:f2:67:0f"
       - attach_workspace:
           at: ~/
       - run:
@@ -213,9 +213,9 @@ jobs:
       - image: circleci/python:3.7
     steps:
       - checkout
-      - add_ssh_keys:
-          fingerprints:
-            - "02:e1:8d:64:ab:a2:53:d8:37:d5:9f:c8:4a:dd:a1:cc:d8:f2:67:0f"
+#      - add_ssh_keys:
+#          fingerprints:
+#            - "02:e1:8d:64:ab:a2:53:d8:37:d5:9f:c8:4a:dd:a1:cc:d8:f2:67:0f"
       - attach_workspace:
           at: ~/
       - run:
